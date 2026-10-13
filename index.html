@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Sites de alta conversão: design, velocidade e copy que transformam visitantes em clientes.">
+<style>html,body{margin:0}</style>
+<title>Sites que Vendem</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: full-bleed bands com miolo centrado; hero tipográfico gigante, faixas marquee e trilha de processo vertical. */
+:root{
+  --bg:#100E0B;
+  --surface:#1A1612;
+  --card:#211C16;
+  --line:#322A21;
+  --fg:#F7F1E6;
+  --muted:#A99D8B;
+  --acc:#FF6B3D;
+  --acc2:#FFC53D;
+  --teal:#38D0B8;
+  --glow:rgba(255,107,61,.22);
+  --shadow:0 24px 60px rgba(0,0,0,.45);
+  --display:"Unbounded","Avenir Next",system-ui,sans-serif;
+  --body:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono","SF Mono",Consolas,monospace;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --bg:#FAF4EA; --surface:#FFFFFF; --card:#FFFFFF; --line:#E7DCCC;
+    --fg:#211A11; --muted:#6F6353;
+    --acc:#E84E1B; --acc2:#C98E00; --teal:#0E9D89;
+    --glow:rgba(232,78,27,.14);
+    --shadow:0 24px 60px rgba(90,60,20,.14);
+    color-scheme:light;
+  }
+}
+:root[data-theme="light"]{
+  --bg:#FAF4EA; --surface:#FFFFFF; --card:#FFFFFF; --line:#E7DCCC;
+  --fg:#211A11; --muted:#6F6353;
+  --acc:#E84E1B; --acc2:#C98E00; --teal:#0E9D89;
+  --glow:rgba(232,78,27,.14);
+  --shadow:0 24px 60px rgba(90,60,20,.14);
+  color-scheme:light;
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--bg); color:var(--fg);
+  font-family:var(--body); font-size:17px; line-height:1.6;
+  overflow-x:clip;
+}
+img{max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--acc); outline-offset:3px; border-radius:4px}
+::selection{background:var(--acc); color:#fff}
+
+.wrap{max-width:1120px; margin-inline:auto; padding-inline:clamp(16px,5vw,32px)}
+section{padding-block:clamp(64px,10vw,120px)}
+
+h1,h2,h3{font-family:var(--display); line-height:1.12; text-wrap:balance; margin:0}
+h2{font-size:clamp(1.6rem,4.2vw,2.6rem); font-weight:700}
+p{margin:0}
+
+.eyebrow{
+  font-family:var(--mono); font-size:.72rem; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--acc); display:inline-flex;
+  align-items:center; gap:.6em;
+}
+.eyebrow::before{content:""; width:28px; height:2px; background:var(--acc); display:inline-block}
+
+/* ---------- barra de progresso ---------- */
+#progress{
+  position:fixed; inset:env(safe-area-inset-top,0px) auto auto 0; left:0; height:3px; width:0%;
+  background:linear-gradient(90deg,var(--acc),var(--acc2)); z-index:60;
+}
+
+/* ---------- navegação ---------- */
+nav{
+  position:sticky; top:env(safe-area-inset-top,0px); z-index:50;
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  background:color-mix(in srgb, var(--bg) 78%, transparent);
+  border-bottom:1px solid var(--line);
+}
+.nav-in{
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  padding-block:14px;
+}
+.logo{
+  font-family:var(--display); font-weight:900; font-size:.95rem;
+  text-decoration:none; letter-spacing:.02em; white-space:nowrap;
+}
+.logo em{font-style:normal; color:var(--acc)}
+.nav-links{display:flex; gap:26px; align-items:center}
+.nav-links a{
+  text-decoration:none; font-size:.9rem; font-weight:500; color:var(--muted);
+  transition:color .25s;
+}
+.nav-links a:hover{color:var(--fg)}
+@media (max-width:720px){ .nav-links{display:none} }
+
+/* ---------- botões ---------- */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:.5em;
+  font-family:var(--display); font-weight:700; font-size:.88rem;
+  padding:16px 30px; border-radius:999px; text-decoration:none;
+  border:1px solid transparent; cursor:pointer; position:relative;
+  overflow:hidden; transition:transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s;
+  will-change:transform;
+}
+.btn-primary{
+  background:linear-gradient(120deg,var(--acc),var(--acc2)); color:#1a0e04;
+  box-shadow:0 10px 32px var(--glow);
+}
+.btn-primary::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);
+  transform:translateX(-120%); transition:none;
+}
+.btn-primary:hover::after{animation:shine .9s ease}
+@keyframes shine{to{transform:translateX(120%)}}
+.btn-primary:hover{box-shadow:0 14px 44px var(--glow)}
+.btn-ghost{border-color:var(--line); color:var(--fg); background:transparent}
+.btn-ghost:hover{border-color:var(--acc); color:var(--acc)}
+.btn-sm{padding:11px 22px; font-size:.78rem}
+
+/* ---------- hero ---------- */
+.hero{position:relative; padding-block:clamp(72px,12vw,140px) clamp(56px,8vw,96px); overflow:clip}
+.hero-bg{position:absolute; inset:0; pointer-events:none}
+.blob{position:absolute; border-radius:50%; filter:blur(90px); opacity:.5}
+.blob-a{width:44vw; height:44vw; min-width:320px; min-height:320px; background:var(--acc); top:-12%; right:-8%; animation:floatA 11s ease-in-out infinite}
+.blob-b{width:30vw; height:30vw; min-width:220px; min-height:220px; background:var(--acc2); bottom:-18%; left:-6%; opacity:.3; animation:floatB 14s ease-in-out infinite}
+.blob-c{width:18vw; height:18vw; min-width:150px; min-height:150px; background:var(--teal); top:36%; left:30%; opacity:.18; animation:floatA 17s ease-in-out infinite reverse}
+@keyframes floatA{50%{transform:translate(-4%,6%) scale(1.08)}}
+@keyframes floatB{50%{transform:translate(5%,-7%) scale(.94)}}
+.hero-grid{
+  position:absolute; inset:0; opacity:.35;
+  background:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size:72px 72px;
+  mask-image:radial-gradient(ellipse 80% 70% at 50% 30%, #000 20%, transparent 75%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 70% at 50% 30%, #000 20%, transparent 75%);
+}
+.hero-in{position:relative; display:grid; gap:28px; max-width:900px}
+.hero h1{
+  font-size:clamp(2.1rem,6.6vw,4.6rem); font-weight:900; letter-spacing:-.01em;
+}
+.hero h1 .dim{color:var(--muted); font-weight:700}
+.rise{display:block; animation:rise .9s cubic-bezier(.2,.8,.2,1) backwards}
+.rise:nth-child(2){animation-delay:.12s}
+.rise:nth-child(3){animation-delay:.24s}
+@keyframes rise{from{opacity:0; transform:translateY(34px)}}
+.rotator{
+  display:inline-grid; text-align:left; vertical-align:bottom;
+  background:linear-gradient(100deg,var(--acc),var(--acc2));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.rotator span{grid-area:1/1; opacity:0; transform:translateY(.6em); transition:opacity .45s, transform .45s cubic-bezier(.2,.8,.2,1)}
+.rotator span.on{opacity:1; transform:none}
+.hero-sub{max-width:34em; color:var(--muted); font-size:clamp(1rem,2vw,1.2rem); animation:rise .9s .34s cubic-bezier(.2,.8,.2,1) backwards}
+.hero-cta{display:flex; gap:14px; flex-wrap:wrap; animation:rise .9s .46s cubic-bezier(.2,.8,.2,1) backwards}
+.hero-chips{display:flex; gap:10px; flex-wrap:wrap; animation:rise .9s .58s cubic-bezier(.2,.8,.2,1) backwards}
+.chip{
+  font-family:var(--mono); font-size:.72rem; letter-spacing:.04em;
+  border:1px solid var(--line); border-radius:999px; padding:7px 14px;
+  color:var(--muted); background:color-mix(in srgb, var(--surface) 60%, transparent);
+}
+.chip b{color:var(--teal); font-weight:600}
+
+/* ---------- marquee ---------- */
+.marquee{
+  border-block:1px solid var(--line); padding-block:18px; overflow:hidden;
+  background:var(--surface);
+}
+.marquee + .marquee{border-top:0}
+.mq-track{display:flex; gap:0; width:max-content; animation:mq 26s linear infinite}
+.marquee.rev .mq-track{animation-direction:reverse; animation-duration:32s}
+.marquee:hover .mq-track{animation-play-state:paused}
+@keyframes mq{to{transform:translateX(-50%)}}
+.mq-track span{
+  font-family:var(--display); font-weight:700; font-size:.92rem;
+  letter-spacing:.14em; text-transform:uppercase; white-space:nowrap;
+  padding-inline:28px; color:var(--muted); display:flex; align-items:center; gap:28px;
+}
+.mq-track span::after{content:"✦"; color:var(--acc); font-size:.8em}
+.mq-track span:nth-child(odd){color:var(--fg)}
+
+/* ---------- reveals por scroll ---------- */
+.reveal{transition:opacity .8s cubic-bezier(.2,.8,.2,1), transform .8s cubic-bezier(.2,.8,.2,1)}
+.reveal.pre{opacity:0; transform:translateY(42px)}
+.reveal.in{opacity:1; transform:none}
+
+/* ---------- estatísticas ---------- */
+.stats-head{display:grid; gap:14px; max-width:640px; margin-bottom:clamp(36px,6vw,64px)}
+.stats-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:20px; overflow:hidden}
+.stat{background:var(--surface); padding:clamp(24px,3.5vw,40px) clamp(20px,3vw,32px); display:grid; gap:10px; align-content:start; transition:background .3s}
+.stat:hover{background:var(--card)}
+.stat-num{
+  font-family:var(--display); font-weight:900; font-size:clamp(2.2rem,5vw,3.4rem);
+  line-height:1; font-variant-numeric:tabular-nums;
+  background:linear-gradient(120deg,var(--acc),var(--acc2));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.stat p{color:var(--muted); font-size:.92rem}
+.stats-src{margin-top:18px; font-family:var(--mono); font-size:.7rem; color:var(--muted); letter-spacing:.03em}
+
+/* ---------- por quê (cards tilt) ---------- */
+.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:18px; margin-top:clamp(32px,5vw,56px)}
+.card{
+  background:var(--card); border:1px solid var(--line); border-radius:20px;
+  padding:clamp(24px,3vw,34px); display:grid; gap:12px; align-content:start;
+  transform-style:preserve-3d; transition:border-color .3s, box-shadow .3s;
+  position:relative;
+}
+.card:hover{border-color:var(--acc); box-shadow:var(--shadow)}
+.card-ico{
+  width:46px; height:46px; border-radius:12px; display:grid; place-items:center;
+  background:linear-gradient(135deg,var(--acc),var(--acc2)); color:#1a0e04;
+  font-family:var(--display); font-weight:900; font-size:1.1rem;
+  transform:translateZ(30px);
+}
+.card h3{font-size:1.05rem; font-weight:700; transform:translateZ(22px)}
+.card p{color:var(--muted); font-size:.93rem; transform:translateZ(14px)}
+
+/* ---------- processo ---------- */
+.proc{background:var(--surface); border-block:1px solid var(--line)}
+.steps{display:grid; gap:0; margin-top:clamp(32px,5vw,56px); position:relative}
+.step{
+  display:grid; grid-template-columns:auto 1fr; gap:clamp(18px,3.5vw,36px);
+  padding-block:clamp(24px,4vw,40px); border-top:1px solid var(--line);
+  align-items:start;
+}
+.step:last-child{border-bottom:1px solid var(--line)}
+.step-num{
+  font-family:var(--display); font-weight:900; font-size:clamp(1.6rem,4vw,2.6rem);
+  color:transparent; -webkit-text-stroke:1.5px var(--acc); line-height:1;
+  min-width:2.4em; font-variant-numeric:tabular-nums;
+  transition:color .4s;
+}
+.step:hover .step-num{color:var(--acc)}
+.step-body{display:grid; gap:8px; min-width:0}
+.step-body h3{font-size:1.1rem; font-weight:700}
+.step-body p{color:var(--muted); max-width:46em}
+
+/* ---------- serviços ---------- */
+.svc-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; margin-top:clamp(32px,5vw,56px)}
+.svc{
+  border:1px solid var(--line); border-radius:20px; padding:clamp(22px,3vw,30px);
+  display:grid; gap:10px; align-content:start; background:var(--card);
+  position:relative; overflow:hidden; transition:transform .35s cubic-bezier(.2,.8,.2,1), border-color .35s;
+}
+.svc::before{
+  content:""; position:absolute; inset:auto -30% -60% auto; width:160px; height:160px;
+  border-radius:50%; background:var(--acc); filter:blur(60px); opacity:0;
+  transition:opacity .4s;
+}
+.svc:hover{transform:translateY(-6px); border-color:var(--acc)}
+.svc:hover::before{opacity:.25}
+.svc h3{font-size:1rem; font-weight:700; position:relative}
+.svc p{color:var(--muted); font-size:.92rem; position:relative}
+.svc .tag{font-family:var(--mono); font-size:.68rem; letter-spacing:.16em; color:var(--teal); text-transform:uppercase; position:relative}
+
+/* ---------- CTA final ---------- */
+.cta{text-align:center; position:relative; overflow:clip}
+.cta .blob-d{
+  position:absolute; width:60vw; height:60vw; min-width:420px; min-height:420px;
+  border-radius:50%; background:var(--acc); filter:blur(130px); opacity:.16;
+  left:50%; top:50%; transform:translate(-50%,-50%); pointer-events:none;
+  animation:pulse 6s ease-in-out infinite;
+}
+@keyframes pulse{50%{opacity:.26; transform:translate(-50%,-50%) scale(1.1)}}
+.cta-in{position:relative; display:grid; gap:26px; justify-items:center}
+.cta h2{font-size:clamp(1.9rem,5.4vw,3.4rem); font-weight:900; max-width:16em}
+.cta p{color:var(--muted); max-width:34em}
+.contact-line{
+  display:flex; gap:12px; align-items:center; flex-wrap:wrap; justify-content:center;
+  font-family:var(--mono); font-size:.95rem;
+}
+.contact-line code{
+  background:var(--surface); border:1px solid var(--line); border-radius:10px;
+  padding:10px 16px; user-select:all;
+}
+.copy-btn{
+  font-family:var(--mono); font-size:.78rem; border:1px solid var(--line);
+  background:var(--surface); color:var(--fg); border-radius:10px; padding:10px 14px;
+  cursor:pointer; transition:border-color .25s, color .25s;
+}
+.copy-btn:hover{border-color:var(--acc); color:var(--acc)}
+
+/* ---------- rodapé ---------- */
+footer{border-top:1px solid var(--line); padding-block:28px}
+.foot-in{display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; color:var(--muted); font-size:.84rem}
+
+/* ---------- cursor luminoso ---------- */
+#cursor{
+  position:fixed; width:340px; height:340px; border-radius:50%;
+  background:radial-gradient(circle, var(--glow), transparent 65%);
+  pointer-events:none; z-index:1; transform:translate(-50%,-50%);
+  left:-999px; top:-999px;
+}
+@media (pointer:coarse){ #cursor{display:none} }
+
+/* ---------- movimento reduzido ---------- */
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{
+    animation-duration:.01ms!important; animation-iteration-count:1!important;
+    transition-duration:.01ms!important; scroll-behavior:auto!important;
+  }
+  .reveal.pre{opacity:1; transform:none}
+  #cursor{display:none}
+}
+html{scroll-behavior:smooth}
+</style>
+</head>
+<body>
+
+<div id="progress" aria-hidden="true"></div>
+<div id="cursor" aria-hidden="true"></div>
+
+<nav>
+  <div class="wrap nav-in">
+    <a class="logo" href="#topo">sites<em>.</em>que<em>.</em>vendem</a>
+    <div class="nav-links">
+      <a href="#porque">Por quê</a>
+      <a href="#processo">Processo</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#contato">Contato</a>
+    </div>
+    <a class="btn btn-primary btn-sm magnet" href="#contato">Começar projeto</a>
+  </div>
+</nav>
+
+<header class="hero" id="topo">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hero-grid"></div>
+    <div class="blob blob-a"></div>
+    <div class="blob blob-b"></div>
+    <div class="blob blob-c"></div>
+  </div>
+  <div class="wrap hero-in">
+    <span class="eyebrow rise">Desenvolvimento web · alta conversão</span>
+    <h1>
+      <span class="rise dim">Um site bonito enfeita.</span>
+      <span class="rise">Um site de alta conversão
+        <span class="rotator" id="rotator">
+          <span class="on">vende.</span>
+          <span>converte.</span>
+          <span>convence.</span>
+          <span>escala.</span>
+        </span>
+      </span>
+    </h1>
+    <p class="hero-sub">Cada milissegundo de carregamento, cada pixel e cada palavra do seu site deveriam trabalhar para transformar visitantes em clientes. Eu projeto e desenvolvo sites que fazem exatamente isso.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary magnet" href="#contato">Quero vender mais</a>
+      <a class="btn btn-ghost magnet" href="#processo">Ver como funciona</a>
+    </div>
+    <div class="hero-chips">
+      <span class="chip">Lighthouse <b>90+</b></span>
+      <span class="chip">Mobile-first</span>
+      <span class="chip">SEO técnico</span>
+      <span class="chip">Acessível</span>
+    </div>
+  </div>
+</header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="mq-track">
+    <span>Conversão</span><span>Performance</span><span>Design</span><span>Copywriting</span><span>SEO</span><span>Mobile-first</span><span>Velocidade</span><span>Resultado</span>
+    <span>Conversão</span><span>Performance</span><span>Design</span><span>Copywriting</span><span>SEO</span><span>Mobile-first</span><span>Velocidade</span><span>Resultado</span>
+  </div>
+</div>
+
+<section id="dados">
+  <div class="wrap">
+    <div class="stats-head reveal">
+      <span class="eyebrow">O relógio está correndo</span>
+      <h2>Seu site tem milissegundos para convencer.</h2>
+      <p style="color:var(--muted)">A primeira impressão acontece antes de qualquer clique. Estes números explicam por que design, velocidade e clareza não são luxo — são receita.</p>
+    </div>
+    <div class="stats-grid">
+      <div class="stat reveal">
+        <span class="stat-num"><span class="count" data-target="0.05" data-decimals="2">0,05</span>s</span>
+        <p>é o tempo que um visitante leva para formar a primeira impressão do seu site.</p>
+      </div>
+      <div class="stat reveal">
+        <span class="stat-num"><span class="count" data-target="53">53</span>%</span>
+        <p>dos acessos no celular são abandonados quando a página demora mais de 3 segundos para abrir.</p>
+      </div>
+      <div class="stat reveal">
+        <span class="stat-num"><span class="count" data-target="75">75</span>%</span>
+        <p>das pessoas julgam a credibilidade de uma empresa pelo design do site dela.</p>
+      </div>
+      <div class="stat reveal">
+        <span class="stat-num"><span class="count" data-target="88">88</span>%</span>
+        <p>dos usuários dificilmente voltam a um site depois de uma experiência ruim.</p>
+      </div>
+    </div>
+    <p class="stats-src reveal">Fontes: estudos públicos de UX — Google Research, Think with Google e Stanford Web Credibility Project.</p>
+  </div>
+</section>
+
+<section id="porque">
+  <div class="wrap">
+    <div class="reveal" style="display:grid; gap:14px; max-width:640px">
+      <span class="eyebrow">Por que alta conversão</span>
+      <h2>Bonito é o mínimo. O site precisa trabalhar.</h2>
+      <p style="color:var(--muted)">Um site de alta conversão é projetado de trás para a frente: começa na ação que o cliente deve tomar e remove tudo o que atrapalha o caminho até ela.</p>
+    </div>
+    <div class="cards">
+      <div class="card tilt reveal">
+        <span class="card-ico" aria-hidden="true">⚡</span>
+        <h3>Velocidade que converte</h3>
+        <p>Código enxuto, imagens otimizadas e carregamento instantâneo. Cada segundo a menos no carregamento significa mais visitantes chegando ao botão de compra.</p>
+      </div>
+      <div class="card tilt reveal">
+        <span class="card-ico" aria-hidden="true">◎</span>
+        <h3>Design que guia o olhar</h3>
+        <p>Hierarquia visual, contraste e espaçamento conduzem o visitante, sem ruído, até a ação que importa: pedir orçamento, comprar, agendar.</p>
+      </div>
+      <div class="card tilt reveal">
+        <span class="card-ico" aria-hidden="true">✍</span>
+        <h3>Texto que vende</h3>
+        <p>Títulos orientados a benefício, prova social e chamadas claras. O visitante entende em segundos o que você faz e por que escolher você.</p>
+      </div>
+      <div class="card tilt reveal">
+        <span class="card-ico" aria-hidden="true">📱</span>
+        <h3>Celular em primeiro lugar</h3>
+        <p>A maioria do seu tráfego chega pelo celular. O site nasce responsivo: botões no alcance do polegar e leitura confortável em qualquer tela.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proc" id="processo">
+  <div class="wrap">
+    <div class="reveal" style="display:grid; gap:14px; max-width:640px">
+      <span class="eyebrow">Como funciona</span>
+      <h2>Do diagnóstico ao site vendendo, em quatro etapas.</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <span class="step-num">01</span>
+        <div class="step-body">
+          <h3>Diagnóstico</h3>
+          <p>Entendo seu negócio, seu público e sua meta: vender, captar leads, agendar. Daqui sai a estratégia de conversão — antes de qualquer pixel.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <span class="step-num">02</span>
+        <div class="step-body">
+          <h3>Design orientado a conversão</h3>
+          <p>Do wireframe à interface final, cada seção tem um papel no funil. Nada entra na página por enfeite.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <span class="step-num">03</span>
+        <div class="step-body">
+          <h3>Desenvolvimento de alto desempenho</h3>
+          <p>Código rápido, SEO técnico, acessibilidade e responsividade perfeita. O site abre em um piscar de olhos em qualquer aparelho.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <span class="step-num">04</span>
+        <div class="step-body">
+          <h3>Otimização contínua</h3>
+          <p>Site no ar é o começo. Métricas, testes e ajustes transformam um bom site em uma máquina de conversão cada vez melhor.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee rev" aria-hidden="true">
+  <div class="mq-track">
+    <span>Menos atrito</span><span>Mais clientes</span><span>Carregamento instantâneo</span><span>Primeira impressão</span><span>Chamada clara</span><span>Prova social</span>
+    <span>Menos atrito</span><span>Mais clientes</span><span>Carregamento instantâneo</span><span>Primeira impressão</span><span>Chamada clara</span><span>Prova social</span>
+  </div>
+</div>
+
+<section id="servicos">
+  <div class="wrap">
+    <div class="reveal" style="display:grid; gap:14px; max-width:640px">
+      <span class="eyebrow">Serviços</span>
+      <h2>O que eu construo para o seu negócio.</h2>
+    </div>
+    <div class="svc-grid">
+      <div class="svc reveal">
+        <span class="tag">Campanhas</span>
+        <h3>Landing pages</h3>
+        <p>Páginas de uma meta só: converter o tráfego dos seus anúncios em leads e vendas, com mensagem e velocidade calibradas.</p>
+      </div>
+      <div class="svc reveal">
+        <span class="tag">Presença</span>
+        <h3>Sites institucionais</h3>
+        <p>O cartão de visitas que também vende: posicionamento claro, credibilidade e caminhos diretos para o contato.</p>
+      </div>
+      <div class="svc reveal">
+        <span class="tag">Vendas</span>
+        <h3>Lojas virtuais</h3>
+        <p>Vitrine rápida, checkout sem fricção e produto em destaque. Do clique no anúncio ao pagamento, sem obstáculos.</p>
+      </div>
+      <div class="svc reveal">
+        <span class="tag">Resgate</span>
+        <h3>Otimização de sites lentos</h3>
+        <p>Seu site já existe, mas não converte? Auditoria completa de velocidade, UX e SEO, e um plano de correção priorizado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="contato">
+  <div class="blob-d" aria-hidden="true"></div>
+  <div class="wrap cta-in">
+    <span class="eyebrow reveal">Vamos começar</span>
+    <h2 class="reveal">Pronto para ter um site que trabalha por você 24 horas por dia?</h2>
+    <p class="reveal">Me conte sobre o seu negócio e eu respondo com um diagnóstico inicial do que um site de alta conversão pode fazer pelos seus números.</p>
+    <div class="reveal" style="display:grid; gap:18px; justify-items:center">
+      <a class="btn btn-primary magnet" href="#contato" id="cta-main">Começar meu projeto</a>
+      <div class="contact-line">
+        <code id="email">contato@seuestudio.com.br</code>
+        <button class="copy-btn" id="copy" type="button">copiar e-mail</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-in">
+    <span>Feito à mão, pixel por pixel.</span>
+    <span>© 2026 · sites.que.vendem</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* barra de progresso */
+  var bar = document.getElementById("progress");
+  function onScroll(){
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + "%";
+  }
+  addEventListener("scroll", onScroll, {passive:true});
+  onScroll();
+
+  /* palavra rotativa */
+  var rot = document.getElementById("rotator");
+  if (rot && !reduced){
+    var words = rot.querySelectorAll("span"), idx = 0;
+    setInterval(function(){
+      words[idx].classList.remove("on");
+      idx = (idx + 1) % words.length;
+      words[idx].classList.add("on");
+    }, 2400);
+  }
+
+  /* reveals: esconde só o que está abaixo da dobra, revela ao rolar */
+  var reveals = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window && !reduced){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, {threshold:.12, rootMargin:"0px 0px -5% 0px"});
+    reveals.forEach(function(el){
+      if (el.getBoundingClientRect().top > innerHeight){
+        el.classList.add("pre");
+        io.observe(el);
+      }
+    });
+  }
+
+  /* contadores */
+  function fmt(v, d){ return v.toLocaleString("pt-BR", {minimumFractionDigits:d, maximumFractionDigits:d}); }
+  function runCount(el){
+    var target = parseFloat(el.dataset.target), dec = parseInt(el.dataset.decimals || "0", 10);
+    if (reduced){ el.textContent = fmt(target, dec); return; }
+    var t0 = null, dur = 1600;
+    function tick(t){
+      if (!t0) t0 = t;
+      var p = Math.min((t - t0) / dur, 1);
+      var ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(target * ease, dec);
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  var counts = document.querySelectorAll(".count");
+  if ("IntersectionObserver" in window && !reduced){
+    var cio = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ runCount(e.target); cio.unobserve(e.target); }
+      });
+    }, {threshold:.5});
+    counts.forEach(function(el){ cio.observe(el); });
+  } else {
+    counts.forEach(function(el){ el.textContent = fmt(parseFloat(el.dataset.target), parseInt(el.dataset.decimals || "0", 10)); });
+  }
+
+  var fine = matchMedia("(pointer: fine)").matches;
+
+  /* tilt 3D nos cards */
+  if (fine && !reduced){
+    document.querySelectorAll(".tilt").forEach(function(card){
+      card.addEventListener("pointermove", function(ev){
+        var r = card.getBoundingClientRect();
+        var x = (ev.clientX - r.left) / r.width - .5;
+        var y = (ev.clientY - r.top) / r.height - .5;
+        card.style.transform = "perspective(800px) rotateX(" + (-y * 8) + "deg) rotateY(" + (x * 10) + "deg)";
+      });
+      card.addEventListener("pointerleave", function(){
+        card.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg)";
+      });
+    });
+  }
+
+  /* botões magnéticos */
+  if (fine && !reduced){
+    document.querySelectorAll(".magnet").forEach(function(btn){
+      btn.addEventListener("pointermove", function(ev){
+        var r = btn.getBoundingClientRect();
+        var x = ev.clientX - r.left - r.width / 2;
+        var y = ev.clientY - r.top - r.height / 2;
+        btn.style.transform = "translate(" + x * .22 + "px," + y * .3 + "px)";
+      });
+      btn.addEventListener("pointerleave", function(){ btn.style.transform = ""; });
+    });
+  }
+
+  /* cursor luminoso */
+  var cursor = document.getElementById("cursor");
+  if (fine && !reduced && cursor){
+    var cx = -999, cy = -999, tx = cx, ty = cy;
+    addEventListener("pointermove", function(ev){ tx = ev.clientX; ty = ev.clientY; }, {passive:true});
+    (function loop(){
+      cx += (tx - cx) * .12; cy += (ty - cy) * .12;
+      cursor.style.left = cx + "px"; cursor.style.top = cy + "px";
+      requestAnimationFrame(loop);
+    })();
+  }
+
+  /* copiar e-mail */
+  var copyBtn = document.getElementById("copy");
+  var email = document.getElementById("email");
+  if (copyBtn && email){
+    copyBtn.addEventListener("click", function(){
+      var txt = email.textContent;
+      function done(){ copyBtn.textContent = "copiado ✓"; setTimeout(function(){ copyBtn.textContent = "copiar e-mail"; }, 1800); }
+      function fallback(){
+        var sel = getSelection(), range = document.createRange();
+        range.selectNodeContents(email); sel.removeAllRanges(); sel.addRange(range);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(txt).then(done).catch(fallback);
+      } else { fallback(); }
+    });
+  }
+})();
+</script>
+</body>
+</html>
