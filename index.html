@@ -328,7 +328,7 @@ html{scroll-behavior:smooth}
       <a href="#servicos">Serviços</a>
       <a href="#contato">Contato</a>
     </div>
-    <a class="btn btn-primary btn-sm magnet" href="#contato">Começar projeto</a>
+    <a class="btn btn-primary btn-sm magnet" href="https://wa.me/5547992708652?text=Ol%C3%A1!%20Quero%20come%C3%A7ar%20meu%20projeto." target="_blank" rel="noopener">Começar projeto</a>
   </div>
 </nav>
 
@@ -521,7 +521,11 @@ html{scroll-behavior:smooth}
       <a class="btn btn-primary magnet" href="https://wa.me/5547992708652?text=Ol%C3%A1!%20Quero%20um%20site%20de%20alta%20convers%C3%A3o." target="_blank" rel="noopener" id="cta-main">Chamar no WhatsApp</a>
       <div class="contact-line">
         <code id="whats" data-copy="47992708652">WhatsApp · (47) 99270-8652</code>
-        <button class="copy-btn" id="copy" type="button">copiar número</button>
+        <button class="copy-btn copy" type="button" data-for="whats" data-label="copiar número">copiar número</button>
+      </div>
+      <div class="contact-line">
+        <code id="mail" data-copy="derik4362@gmail.com">derik4362@gmail.com</code>
+        <button class="copy-btn copy" type="button" data-for="mail" data-label="copiar e-mail">copiar e-mail</button>
       </div>
     </div>
   </div>
@@ -645,22 +649,22 @@ html{scroll-behavior:smooth}
     })();
   }
 
-  /* copiar número do WhatsApp */
-  var copyBtn = document.getElementById("copy");
-  var whats = document.getElementById("whats");
-  if (copyBtn && whats){
-    copyBtn.addEventListener("click", function(){
-      var txt = whats.dataset.copy || whats.textContent;
-      function done(){ copyBtn.textContent = "copiado ✓"; setTimeout(function(){ copyBtn.textContent = "copiar número"; }, 1800); }
+  /* botões de copiar contato */
+  document.querySelectorAll(".copy").forEach(function(btn){
+    var el = document.getElementById(btn.dataset.for);
+    if (!el) return;
+    btn.addEventListener("click", function(){
+      var txt = el.dataset.copy || el.textContent;
+      function done(){ btn.textContent = "copiado ✓"; setTimeout(function(){ btn.textContent = btn.dataset.label; }, 1800); }
       function fallback(){
         var sel = getSelection(), range = document.createRange();
-        range.selectNodeContents(whats); sel.removeAllRanges(); sel.addRange(range);
+        range.selectNodeContents(el); sel.removeAllRanges(); sel.addRange(range);
       }
       if (navigator.clipboard && navigator.clipboard.writeText){
         navigator.clipboard.writeText(txt).then(done).catch(fallback);
       } else { fallback(); }
     });
-  }
+  });
 })();
 </script>
 </body>
